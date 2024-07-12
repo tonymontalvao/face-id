@@ -12,7 +12,10 @@ if __name__ == '__main__':
     # Faz leitura do arquivo parametros
     params = step1.read()
     if params:
-        images = step2.get_images(params)
+        if params['images_folder'] == 'False':
+            images = step2.get_images(params)
+        else:
+            images = True
 
     # Treina imagens
     if images:

@@ -15,14 +15,11 @@ def run(params):
 
     try:
         if component == 'eigen':
-            component = cv2.face.EigenFaceRecognizer_create(
-                num_components=50, threshold=threshold)
+            component = cv2.face.EigenFaceRecognizer_create()
         elif component == 'fisher':
-            component = cv2.face.FisherFaceRecognizer_create(
-                num_components=50, threshold=threshold)
+            component = cv2.face.FisherFaceRecognizer_create()
         elif component == 'lbph':
-            component = cv2.face.LBPHFaceRecognizer_create(
-                radius=1, neighbors=1, grid_x=5, grid_y=5, threshold=threshold)
+            component = cv2.face.LBPHFaceRecognizer_create()
         else:
             print('Não foi possível selecionar componente para reconhecimento...')
             return None

@@ -66,17 +66,21 @@ def run(params):
             # Desenha retangulo
             cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
-            # Mostra a confiança da imagem
-            cv2.putText(image, str(confiance), (x, y + (h + 50)),
-                        font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
-
             # Mostra o id da imagem
             cv2.putText(image, str(id), (x, y + (w + 30)),
                         font, 0.8, (0, 0, 255), 2, cv2.LINE_AA, False)
 
+            # Mostra a confiança da imagem
+            cv2.putText(image, str(confiance), (x, y + (h + 50)),
+                        font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
+
             if confiance >= float(threshold):
+                # Mostra o id da imagem
+                cv2.putText(image, 'true', (x, y + (w + 70)),
+                            font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
+
                 # Escreve no navegador
-                if debug == 'False' and navigator is True:
+                if debug == 'False' and navigator is True and id != id:
                     search_box.send_keys(id)
                     search_box.send_keys(Keys.ENTER)
 
