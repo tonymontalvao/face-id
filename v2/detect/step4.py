@@ -70,11 +70,11 @@ def run(params):
             cv2.putText(image, str(confiance), (x, y + (h + 50)),
                         font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
 
-            if confiance >= float(threshold):
-                # Mostra o id da imagem
-                cv2.putText(image, str(id), (x, y + (w + 30)),
-                            font, 0.8, (0, 0, 255), 2, cv2.LINE_AA, False)
+            # Mostra o id da imagem
+            cv2.putText(image, str(id), (x, y + (w + 30)),
+                        font, 0.8, (0, 0, 255), 2, cv2.LINE_AA, False)
 
+            if confiance >= float(threshold):
                 # Escreve no navegador
                 if debug == 'False' and navigator is True:
                     search_box.send_keys(id)
