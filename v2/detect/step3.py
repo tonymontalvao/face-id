@@ -2,6 +2,7 @@ import cv2
 import numpy
 from PIL import Image
 import os
+import shutil
 
 
 def run(params):
@@ -9,6 +10,7 @@ def run(params):
     component = params['component']
     threshold = float(params['threshold'])
     path = params['images_path']
+    debug = params['debug']
 
     try:
         if component == 'eigen':
@@ -41,6 +43,9 @@ def run(params):
     try:
         component.train(aImages, numpy.array(aIds))
         component.write('classifier.yml')
+        if debug == 'False':
+            shutil.rmtree(path, ignore_errors=True)
+
         return True
     except:
         print('Não foi possível gerar array para treinamento')

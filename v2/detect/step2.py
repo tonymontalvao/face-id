@@ -1,9 +1,7 @@
 import requests
-import json
 import os
 import shutil
 import numpy
-import base64
 import cv2
 from PIL import Image
 from io import BytesIO
