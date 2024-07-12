@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 *_parameters.txt
 *.db
+*.DS_Store
