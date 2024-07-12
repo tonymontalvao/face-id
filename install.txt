@@ -8,7 +8,7 @@ sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev l
 
 
 ## Download project git
-git@github.com:tonymontalvao/face-id.git
+git clone https://github.com/tonymontalvao/face-id.git
 
 ## Baixar pacotes
 cd face-id && cd v2 && cd detect
