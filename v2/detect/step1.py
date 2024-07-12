@@ -6,6 +6,7 @@ file_path = '_parameters.txt'
 parameters = {
     'images_url': '',
     'images_path': 'imagens',
+    'images_folder': 'False',
     'site_url': '',
     'site_field_focus': '',
     'component': 'lbph',

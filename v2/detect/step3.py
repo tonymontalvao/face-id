@@ -11,6 +11,7 @@ def run(params):
     threshold = float(params['threshold'])
     path = params['images_path']
     debug = params['debug']
+    folder = params['images_folder']
 
     try:
         if component == 'eigen':
@@ -43,7 +44,7 @@ def run(params):
     try:
         component.train(aImages, numpy.array(aIds))
         component.write('classifier.yml')
-        if debug == 'False':
+        if debug == 'False' and folder == 'False':
             shutil.rmtree(path, ignore_errors=True)
 
         return True

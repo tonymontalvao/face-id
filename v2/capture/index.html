@@ -108,7 +108,7 @@
             }
 
 
-            url = 'http://192.168.2.3:8000/api/v1/imagens/' + document.getElementById('idempresa').value  + '/' + document.getElementById('idpessoa').value
+            url = 'http://localhost:8000/api/v1/imagens/' + document.getElementById('idempresa').value + '/' + document.getElementById('idpessoa').value
 
 
             const raw = JSON.stringify(json)
@@ -120,17 +120,17 @@
                 },
                 body: raw
             })
-            .then(resp => resp.json())
-            .then(data => {
-                alert('Cadastro salvo com sucesso!')
-                document.getElementById('div-canvas').innerHTML = null
-                document.getElementById('idpessoa').value = null
-                document.getElementById('idpessoa').focus()
-                document.getElementById('sendPhotos').disabled = true;
-            })
-            .catch(error => {
-                console.log(error)
-            })
+                .then(resp => resp.json())
+                .then(data => {
+                    alert('Cadastro salvo com sucesso!')
+                    document.getElementById('div-canvas').innerHTML = null
+                    document.getElementById('idpessoa').value = null
+                    document.getElementById('idpessoa').focus()
+                    document.getElementById('sendPhotos').disabled = true;
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
     </script>
 
