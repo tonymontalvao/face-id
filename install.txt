@@ -11,7 +11,7 @@ sudo apt-get install build-essential cmake pkg-config libjpeg-dev libtiff5-dev l
 git clone https://github.com/tonymontalvao/face-id.git
 
 ## Baixar pacotes
-cd face-id 
+cd face-id && cd v2
 sudo pip install -r requirements.txt
 sudo apt install python3-opencv
 sudo apt-get install chromium-chromedriver
