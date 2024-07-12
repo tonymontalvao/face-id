@@ -3,6 +3,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
 
@@ -77,6 +78,7 @@ def run(params):
                 # Escreve no navegador
                 if debug == 'False' and navigator is True:
                     search_box.send_keys(id)
+                    search_box.send_keys(Keys.ENTER)
 
         cv2.imshow("Face", image)
 
