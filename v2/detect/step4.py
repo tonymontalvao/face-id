@@ -48,7 +48,7 @@ def run(params):
 
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
-        search_box = driver.find_element(by=By.NAME, value=field)
+        search_box = driver.find_element(by=By.ID, value=field)
 
     while True:
         connect, image = camera.read()
