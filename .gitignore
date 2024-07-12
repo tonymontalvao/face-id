@@ -399,3 +399,5 @@ FodyWeavers.xsd
 *_parameters.txt
 *.db
 *.DS_Store
+.DS_Store
+capture/fotos/*
