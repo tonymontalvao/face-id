@@ -34,13 +34,13 @@ def get_images(params) -> dict:
             response_image = requests.get(i[params['field_image']])
 
             if response_image.status_code == 200 or response_image.status_code == 202:
-                path_images = f'{params['path_images']}/'
-                image_name = f'p.{i[params['field_id']]}.01.jpg'
+                path_images = f"{params['path_images']}/"
+                image_name = f"p.{i[params['field_id']]}.01.jpg"
 
                 while True:
                     if os.path.isfile(path_images + image_name):
                         seq = int(image_name.split('.')[2]) + 1
-                        image_name = f'p.{i[params['field_id']]}.{seq:02}.jpg'
+                        image_name = f"p.{i[params['field_id']]}.{seq:02}.jpg"
                     else:
                         break
 
@@ -61,5 +61,5 @@ def get_images(params) -> dict:
 
                     cv2.imwrite(image_name, image_face)
             else:
-                print(f'Não foi possível baixar imagem {
-                      i[params['field_image']]}')
+                print(f"Não foi possível baixar imagem {
+                      i[params['field_image']]}")
