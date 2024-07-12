@@ -18,5 +18,4 @@ if __name__ == '__main__':
 
     # Abre programa
     if images:
-        pass
-        # step3.run(params)
+        step3.run(params)

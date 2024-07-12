@@ -1,11 +1,6 @@
 import requests
 import os
 import shutil
-import urllib.request
-import numpy
-import cv2
-from PIL import Image
-from io import BytesIO
 
 
 def get_images(params) -> dict:
