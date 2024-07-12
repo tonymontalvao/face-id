@@ -401,5 +401,6 @@ FodyWeavers.xsd
 *.db
 *.DS_Store
 .DS_Store
-capture/fotos/*
-v2/apis/imagens/*
+capture/fotos/
+v2/apis/imagens/
+v3/imagens/
