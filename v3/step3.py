@@ -59,7 +59,7 @@ def run(params):
             break
 
         # resize
-        frame = cv2.resize(frame, (600, 400))
+        # frame = cv2.resize(frame, (600, 400))
 
         # Only process every other frame of video to save time
         if process_this_frame:
