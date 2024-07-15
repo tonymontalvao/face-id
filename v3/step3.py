@@ -8,6 +8,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
+# files
+from main import printProgressBar
+
 
 def run(params):
     path = params['images_path']
@@ -25,11 +28,16 @@ def run(params):
              for f in os.listdir(path) if not f.startswith('.')]
     files.sort()
 
-    for file in files:
-        image = face_recognition.load_image_file(file)
-        encoding = face_recognition.face_encodings(image)[0]
-        known_face_encodings.append(encoding)
-        known_face_names.append(os.path.split(file)[1].split('.')[1])
+    for i, file in enumerate(files, 1):
+        try:
+            printProgressBar(i, len(files), prefix='Progress:',
+                             suffix='Complete', autosize=True)
+            image = face_recognition.load_image_file(file)
+            encoding = face_recognition.face_encodings(image)[0]
+            known_face_encodings.append(encoding)
+            known_face_names.append(os.path.split(file)[1].split('.')[1])
+        except:
+            print(f"Não foi possível carregar imagem {file}")
 
     # Initialize some variables
     face_locations = []
@@ -117,12 +125,13 @@ def run(params):
                 search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
+        cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
         cv2.imshow('Video', frame)
 
         if debug == 'False' and navigator is False:
+            cv2.waitKey(5000)
             navigator = True
             driver.fullscreen_window()
-            cv2.waitKey(5000)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):

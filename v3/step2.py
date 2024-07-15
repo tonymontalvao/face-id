@@ -37,8 +37,11 @@ def get_images(params) -> dict:
 
         response_image = requests.get(photo)
         try:
-            with open(f"{path}/{image_name}", "wb") as image:
-                image.write(response_image.content)
+            if response_image.ok:
+                with open(f"{path}/{image_name}", "wb") as image:
+                    image.write(response_image.content)
+            else:
+                print(f"Não foi possível baixar a imagem {image_id} - {photo}")
         except:
             print(f"Não foi possível baixar a imagem {image_id} - {photo}")
 
