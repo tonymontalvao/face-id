@@ -52,9 +52,14 @@ def run(params):
         driver.get(site)
         search_box = driver.find_element(by=By.ID, value=field)
 
-    while True:
+    while video_capture.isOpened():
         # Grab a single frame of video
         ret, frame = video_capture.read()
+        if not ret:
+            break
+
+        # resize
+        frame = cv2.resize(frame, (600, 400))
 
         # Only process every other frame of video to save time
         if process_this_frame:
