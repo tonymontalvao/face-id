@@ -160,9 +160,9 @@ def run(params):
                 search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
-        if debug == 'True':
-            cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
-            cv2.imshow('Video', frame)
+        # if debug == 'True':
+        cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
+        cv2.imshow('Video', frame)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
