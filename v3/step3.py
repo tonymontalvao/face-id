@@ -89,6 +89,7 @@ def run(params):
                 service = Service(ChromeDriverManager().install())
 
             driver = webdriver.Chrome(options=chrome_options, service=service)
+            driver.fullscreen_window()
 
         driver.get(site)
         search_box = driver.find_element(by=By.ID, value=field)
@@ -158,16 +159,13 @@ def run(params):
                 # Display the resulting image
                 cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
                 cv2.imshow('Video', frame)
-            elif navigator is True:
-                if name != 'None':
-                    # Escreve no navegador
-                    search_box.send_keys(name)
-                    search_box.send_keys(Keys.ENTER)
+            elif name != 'None':
+                # Escreve no navegador
+                search_box.send_keys(name)
+                search_box.send_keys(Keys.ENTER)
             else:
-                navigator = True
-                driver.fullscreen_window()
 
-        # Hit 'q' on the keyboard to quit!
+                # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
             break
 
