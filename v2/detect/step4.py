@@ -94,12 +94,13 @@ def run(params):
                     # Mostra o id da imagem
                     cv2.putText(image, 'true', (x, y + (w + 70)),
                                 font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
+
+                cv2.imshow("Face", image)
             elif navigator is True and id != -1:
                 # Escreve no navegador
                 search_box.send_keys(id)
                 search_box.send_keys(Keys.ENTER)
 
-        cv2.imshow("Face", image)
         k = cv2.waitKey(10)
 
         if debug == 'False' and navigator is False:
