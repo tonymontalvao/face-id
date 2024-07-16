@@ -100,9 +100,6 @@ def run(params):
         if not ret:
             break
 
-        # resize
-        # frame = cv2.resize(frame, (600, 400))
-
         # Only process every other frame of video to save time
         if process_this_frame:
             # Resize frame of video to 1/4 size for faster face recognition processing
@@ -163,7 +160,7 @@ def run(params):
 
         # Display the resulting image
         if debug == 'True':
-            cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
+            cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
             cv2.imshow('Video', frame)
 
         # Hit 'q' on the keyboard to quit!
