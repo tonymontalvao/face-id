@@ -132,8 +132,7 @@ def run(params):
 
             if name != 'None':
                 title = get_active_window_title()
-                if 'Presença' in title:
-                    print(title)
+                print(title)
 
                 pyautogui.write(name + '\n', interval=0.0)
                 # pyautogui.press('enter')
