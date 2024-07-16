@@ -28,7 +28,7 @@ def run(params):
         return None
 
     try:
-        fps = 30
+        fps = 15
         frame_width = 640
         frame_height = 480
 
@@ -37,9 +37,7 @@ def run(params):
         font = cv2.FONT_HERSHEY_DUPLEX
 
         if usb == 'True':
-            pipeline = "libcamerasrc ! video/x-raw, width=640, height=480, framerate=15/1 ! videoconvert ! videoscale ! video/x-raw, width=640, height=480 ! appsink"
-            camera = cv2.VideoCapture(
-                pipeline, apiPreference=cv2.CAP_GSTREAMER)
+            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_GSTREAMER)
         else:
             camera = cv2.VideoCapture(0)
 
