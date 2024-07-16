@@ -148,7 +148,6 @@ def run(params):
                     search_box.send_keys(name)
                     search_box.send_keys(Keys.ENTER)
             else:
-                cv2.waitKey(5000)
                 navigator = True
                 driver.fullscreen_window()
 
