@@ -26,7 +26,6 @@ def get_active_window_title():
 def run(params):
     debug = params['debug']
     site = params['site_url']
-    field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
 
