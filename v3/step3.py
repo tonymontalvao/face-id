@@ -2,8 +2,14 @@ import face_recognition
 import cv2
 import numpy as np
 import io
-import webbrowser
-import pyautogui
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 # files
 from core.database import session_maker
@@ -13,6 +19,7 @@ from models.fotos_model import FotosModel
 def run(params):
     debug = params['debug']
     site = params['site_url']
+    field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
 
@@ -21,15 +28,6 @@ def run(params):
     frame_width = 640
     frame_height = 480
     font = cv2.FONT_HERSHEY_DUPLEX
-
-    if usb == 'True':
-        video_capture = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
-    else:
-        video_capture = cv2.VideoCapture(0)
-
-    # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
-    # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
-    # video_capture.set(cv2.CAP_PROP_FPS, fps)
 
     known_face_encodings, known_face_names = [], []
 
@@ -55,8 +53,32 @@ def run(params):
     process_this_frame = True
 
     if debug == 'False':
-        webbrowser.open(site, new=2)
-        pyautogui.press('F11')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_experimental_option("useAutomationExtension", False)
+        chrome_options.add_experimental_option(
+            "excludeSwitches", ["enable-automation"])
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(options=chrome_options, service=service)
+        driver.get(site)
+
+        try:
+            element = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID, 'lb_porteiro')))
+        except:
+            driver.quit()
+        finally:
+            driver.implicitly_wait(100)
+            driver.fullscreen_window()
+            search_box = driver.find_element(by=By.ID, value=field)
+
+    if usb == 'True':
+        video_capture = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+    else:
+        video_capture = cv2.VideoCapture(0)
+
+    # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
+    # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
+    # video_capture.set(cv2.CAP_PROP_FPS, fps)
 
     while True:
         # Grab a single frame of video
@@ -117,9 +139,10 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-            elif name != 'None':
-                pyautogui.write(name, interval=0.10)
-                pyautogui.press('enter')
+            elif name != 'None' and element.get_property('innerHTML') != 'Porteiro?':
+                # Escreve no navegador
+                search_box.send_keys(name)
+                search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
         if debug == 'True':
@@ -133,3 +156,4 @@ def run(params):
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
+    driver.quit()
