@@ -42,7 +42,7 @@ def run(params):
 
     # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
-    video_capture.set(cv2.CAP_PROP_FPS, fps)
+    # video_capture.set(cv2.CAP_PROP_FPS, fps)
 
     known_face_encodings, known_face_names = [], []
 
