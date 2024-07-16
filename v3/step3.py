@@ -91,9 +91,11 @@ def run(params):
             driver = webdriver.Chrome(options=chrome_options, service=service)
             driver.fullscreen_window()
 
-        driver.get(site)
-        search_box = driver.find_element(by=By.ID, value=field)
-        cv2.waitKey(5000)
+        try:
+            driver.get(site)
+            search_box = driver.find_element(by=By.ID, value=field)
+        except:
+            print('Campo não encontrado!')
 
     while True:
         # Grab a single frame of video
