@@ -136,7 +136,7 @@ def run(params):
                     print(title)
 
                 pyautogui.write(name, interval=0.50)
-                pyautogui.press('enter')
+                # pyautogui.press('enter')
 
         # Display the resulting image
         if debug == 'True' or debug == 'False':
