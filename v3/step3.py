@@ -163,7 +163,7 @@ def run(params):
 
         # Display the resulting image
         if debug == 'True':
-            cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+            cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
             cv2.imshow('Video', frame)
 
         # Hit 'q' on the keyboard to quit!
