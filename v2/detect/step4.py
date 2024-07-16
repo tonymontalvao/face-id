@@ -27,10 +27,17 @@ def run(params):
         return None
 
     try:
+        fps = 30
+        frame_width = 640
+        frame_height = 480
+
         recognizer.read("classifier.yml")
         width, height = 220, 220
         font = cv2.FONT_HERSHEY_DUPLEX
         camera = cv2.VideoCapture(0)
+        camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
+        camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
+        camera.set(cv2.CAP_PROP_FPS, fps)
     except:
         print('Não foi possível definir parametros para configuração de abertura!')
         return None
