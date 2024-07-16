@@ -28,7 +28,7 @@ def run(params):
         return None
 
     try:
-        fps = 15
+        fps = 30
         frame_width = 640
         frame_height = 480
 
@@ -37,7 +37,7 @@ def run(params):
         font = cv2.FONT_HERSHEY_DUPLEX
 
         if usb == 'True':
-            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_DSHOW)
         else:
             camera = cv2.VideoCapture(0)
 
