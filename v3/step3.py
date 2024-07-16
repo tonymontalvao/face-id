@@ -162,7 +162,7 @@ def run(params):
                 search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
-        if debug == 'False':
+        if debug == 'True':
             cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
             cv2.imshow('Video', frame)
 
