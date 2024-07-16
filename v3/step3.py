@@ -21,10 +21,23 @@ def run(params):
     site = params['site_url']
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
+    usb = params['webcam_usb']
     navigator = False
 
     # Get a reference to webcam #0 (the default one)
-    video_capture = cv2.VideoCapture(0)
+    fps = 30
+    frame_width = 320
+    frame_height = 240
+    font = cv2.FONT_HERSHEY_DUPLEX
+
+    if usb == 'True':
+        camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+    else:
+        camera = cv2.VideoCapture(0)
+
+    camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
+    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
+    camera.set(cv2.CAP_PROP_FPS, fps)
 
     known_face_encodings, known_face_names = [], []
 
