@@ -4,10 +4,10 @@ import numpy as np
 import io
 import webbrowser
 import pyautogui
-from AppKit import NSWorkspace
 
 
 # files
+from main import get_active_window_title
 from core.database import session_maker
 from models.fotos_model import FotosModel
 
@@ -120,8 +120,7 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-                active_app = NSWorkspace.sharedWorkspace().frontmostApplication()
-                print(f"Active app: {active_app.localizedName()}")
+                print(f"Active window title: {get_active_window_title()}")
                 # pyautogui.write(name, interval=0.25)
                 # pyautogui.press('enter')
             elif name != 'None':

@@ -16,4 +16,4 @@ git clone https://github.com/tonymontalvao/face-id.git
 ## Baixar pacotes
 cd face-id && cd v2
 sudo apt install python3-opencv
-pip install pygetwindow
+sudo apt-get install xdotool
