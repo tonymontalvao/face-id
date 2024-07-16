@@ -14,6 +14,7 @@ def run(params):
     navigator = False
     site = params['site_url']
     field = params['site_field_focus']
+    usb = params['webcam_usb']
     detectorFace = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     if component == 'eigen':
@@ -28,13 +29,18 @@ def run(params):
 
     try:
         fps = 30
-        frame_width = 640
-        frame_height = 480
+        frame_width = 320
+        frame_height = 240
 
         recognizer.read("classifier.yml")
         width, height = 220, 220
         font = cv2.FONT_HERSHEY_DUPLEX
-        camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+
+        if usb:
+            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+        else:
+            camera = cv2.VideoCapture(0)
+
         camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
         camera.set(cv2.CAP_PROP_FPS, fps)

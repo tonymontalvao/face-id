@@ -12,6 +12,7 @@ parameters = {
     'component': 'lbph',
     'threshold': 3500,
     'debug': True,
+    'webcam_usb': True,
 }
 
 
