@@ -44,6 +44,8 @@ def run(params):
         camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
         camera.set(cv2.CAP_PROP_FPS, fps)
+        camera.set(cv2.CAP_PROP_FOURCC,
+                   cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
     except:
         print('Não foi possível definir parametros para configuração de abertura!')
         return None
