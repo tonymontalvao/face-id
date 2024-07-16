@@ -37,7 +37,7 @@ def run(params):
         font = cv2.FONT_HERSHEY_DUPLEX
 
         if usb == 'True':
-            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_GSTREAMER)
+            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
         else:
             camera = cv2.VideoCapture(0)
 
