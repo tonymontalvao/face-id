@@ -28,7 +28,7 @@ else:
         photo['encoding'] = encode
         photo['id'] = r.id_pessoa
         photo['index'] = r.idx_imagem
-        photo['reconhecido'] = None
+        photo['link'] = r.link_imagem
         photos.append(photo)
 
     for photo in photos:

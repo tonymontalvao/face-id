@@ -46,6 +46,10 @@
     <div id="div-canvas" class="d-flex flex-row flex-wrap">
     </div>
 
+    <div id="text" class="row">
+        <textarea id="inputs" name="w3review" rows="4" cols="50"></textarea>
+    </div>
+
 
     <!-- JavaScript code will go here -->
     <script>
@@ -101,6 +105,9 @@
             if (event.key === "Enter") {
                 // Cancel the default action, if needed
                 event.preventDefault();
+                if (inputs.value.indexOf(idempresa.value) == -1) {
+                    inputs.value = inputs.value + idempresa.value + ';'
+                }
                 idempresa.value = null
             }
         });

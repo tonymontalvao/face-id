@@ -60,43 +60,66 @@ def get_images(params) -> dict:
                 if response_image.ok:
                     with open(f"{path}/{image_name}", "wb") as image:
                         image.write(response_image.content)
+
+                    try:
+                        image = face_recognition.load_image_file(
+                            f"{path}/{image_name}")
+                        encoding = face_recognition.face_encodings(image)[0]
+                        out = io.BytesIO()
+                        encoding = numpy.save(out, encoding)
+                        out.seek(0)
+
+                        if register:
+                            register.hash_imagem = out.read()
+                            register.link_imagem = photo
+                        else:
+                            register = FotosModel(
+                                id_pessoa=person_id,
+                                idx_imagem=image_id,
+                                hash_imagem=out.read(),
+                                link_imagem=photo,
+                            )
+                            db.add(register)
+                    except:
+                        print(f"Não foi possível carregar a imagem {photo}")
                 else:
                     print(f"Não foi possível baixar a imagem {photo}")
 
-    # Faz a codificação dos arquivos
-    files = [os.path.join(path, f)
-             for f in os.listdir(path) if not f.startswith('.')]
-    files.sort()
+    else:
+        # Faz a codificação dos arquivos
+        files = [os.path.join(path, f)
+                 for f in os.listdir(path) if not f.startswith('.')]
+        files.sort()
 
-    for i, file in enumerate(files, 1):
-        try:
-            printProgressBar(i, len(files), prefix='Progress:',
-                             suffix='Complete', autosize=True)
+        for i, file in enumerate(files, 1):
+            try:
+                printProgressBar(i, len(files), prefix='Progress:',
+                                 suffix='Complete', autosize=True)
 
-            image = face_recognition.load_image_file(file)
-            encoding = face_recognition.face_encodings(image)[0]
-            out = io.BytesIO()
-            encoding = numpy.save(out, encoding)
-            out.seek(0)
+                image = face_recognition.load_image_file(file)
+                encoding = face_recognition.face_encodings(image)[0]
+                out = io.BytesIO()
+                encoding = numpy.save(out, encoding)
+                out.seek(0)
 
-            person_id = os.path.split(file)[1].split('.')[1]
-            image_id = os.path.split(file)[1].split('.')[2]
+                person_id = os.path.split(file)[1].split('.')[1]
+                image_id = os.path.split(file)[1].split('.')[2]
 
-            register = db.query(FotosModel).filter(
-                FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == photo).one_or_none()
+                register = db.query(FotosModel).filter(
+                    FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == photo).one_or_none()
 
-            if register:
-                register.hash_imagem = out.read()
-            else:
-                register = FotosModel(
-                    id_pessoa=person_id,
-                    idx_imagem=image_id,
-                    hash_imagem=out.read()
-                )
-                db.add(register)
+                if register:
+                    register.hash_imagem = out.read()
+                else:
+                    register = FotosModel(
+                        id_pessoa=person_id,
+                        idx_imagem=image_id,
+                        hash_imagem=out.read()
+                    )
+                    db.add(register)
 
-        except:
-            print(f"Não foi possível carregar imagem {file}")
+            except:
+                print(f"Não foi possível carregar imagem {file}")
 
     # Salva alterações no banco de dados
     db.commit()
