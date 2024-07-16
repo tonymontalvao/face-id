@@ -25,9 +25,9 @@ def run(params):
     navigator = False
 
     # Get a reference to webcam #0 (the default one)
-    fps = 30
-    frame_width = 320
-    frame_height = 240
+    fps = 10
+    frame_width = 640
+    frame_height = 480
     font = cv2.FONT_HERSHEY_DUPLEX
 
     if usb == 'True':
