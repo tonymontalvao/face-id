@@ -44,8 +44,6 @@ else:
                 regs += 1
 
         if regs == 0:
-            print(f"Foto da pessoa: {photo['id']
-                                     }-{photo['link']} não encontrada!")
+            print(f"Foto: {photo['id']}-{photo['link']} não encontrada!")
         elif regs > 1:
-            print(f"Foto da pessoa: {
-                  photo['id']}-{photo['link']} encontrada {regs} vezes!")
+            print(f"Foto: {photo['id']}-{photo['link']} semelhante {regs}x!")
