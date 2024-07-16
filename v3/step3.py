@@ -4,12 +4,23 @@ import numpy as np
 import io
 import webbrowser
 import pyautogui
-
+import subprocess
 
 # files
-from main import get_active_window_title
 from core.database import session_maker
 from models.fotos_model import FotosModel
+
+
+def get_active_window_title():
+    try:
+        # Run the xdotool command to get the active window's name
+        result = subprocess.run(
+            ['xdotool', 'getactivewindow', 'getwindowname'], stdout=subprocess.PIPE)
+        # Decode the output from bytes to a string and strip any extra whitespace
+        active_window_title = result.stdout.decode('utf-8').strip()
+        return active_window_title
+    except Exception as e:
+        return f"An error occurred: {e}"
 
 
 def run(params):

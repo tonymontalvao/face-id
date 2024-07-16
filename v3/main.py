@@ -1,7 +1,7 @@
 # virtualenv: face-id
 import shutil
 import time
-import subprocess
+
 
 # files
 from create_database import create_tables
@@ -35,18 +35,6 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
     # Print New Line on Complete
     if iteration == total:
         print()
-
-
-def get_active_window_title():
-    try:
-        # Run the xdotool command to get the active window's name
-        result = subprocess.run(
-            ['xdotool', 'getactivewindow', 'getwindowname'], stdout=subprocess.PIPE)
-        # Decode the output from bytes to a string and strip any extra whitespace
-        active_window_title = result.stdout.decode('utf-8').strip()
-        return active_window_title
-    except Exception as e:
-        return f"An error occurred: {e}"
 
 
 if __name__ == '__main__':
