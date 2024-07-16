@@ -96,7 +96,7 @@ def run(params):
                 # Escreve no navegador
                 search_box.send_keys(id)
                 search_box.send_keys(Keys.ENTER)
-                cv2.waitKey(1)
+                cv2.waitKey(10)
 
         cv2.imshow("Face", image)
 
