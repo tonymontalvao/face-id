@@ -20,7 +20,7 @@ def run(params):
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
-    browser = params['navigator']
+    browser = params['browser']
     navigator = False
 
     if browser == 'mozilla':
