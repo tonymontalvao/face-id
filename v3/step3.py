@@ -30,7 +30,7 @@ def run(params):
         from webdriver_manager.chrome import ChromeDriverManager
 
     # Get a reference to webcam #0 (the default one)
-    fps = 10
+    fps = 30
     frame_width = 640
     frame_height = 480
     font = cv2.FONT_HERSHEY_DUPLEX
