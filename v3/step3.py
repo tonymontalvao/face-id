@@ -135,7 +135,7 @@ def run(params):
                 if 'Presença' in title:
                     print(title)
 
-                pyautogui.write(name, interval=0.50)
+                pyautogui.write(name + '\n', interval=0.50)
                 # pyautogui.press('enter')
 
         # Display the resulting image
