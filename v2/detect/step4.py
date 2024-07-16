@@ -34,7 +34,7 @@ def run(params):
         recognizer.read("classifier.yml")
         width, height = 220, 220
         font = cv2.FONT_HERSHEY_DUPLEX
-        camera = cv2.VideoCapture(0)
+        camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
         camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
         camera.set(cv2.CAP_PROP_FPS, fps)
