@@ -100,14 +100,14 @@ def run(params):
                 search_box.send_keys(Keys.ENTER)
 
         cv2.imshow("Face", image)
-        cv2.waitKey(10)
+        k = cv2.waitKey(10)
 
         if debug == 'False' and navigator is False:
             cv2.waitKey(5000)
             navigator = True
             driver.fullscreen_window()
 
-        if cv2.waitKey(1) == ord('q'):
+        if k == ord('q'):
             break
 
     # End
