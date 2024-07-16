@@ -21,7 +21,6 @@ def run(params):
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
     browser = params['browser']
-    navigator = False
 
     if browser == 'mozilla':
         from selenium.webdriver.firefox.service import Service
@@ -76,8 +75,8 @@ def run(params):
                 service = driver = Service(GeckoDriverManager().install())
 
             driver = webdriver.Firefox(service=service)
-            driver.maximize_window()
-            driver.fullscreen_window()
+            driver.find_element(
+                by=By.XPATH, value='/html/body').send_keys(Keys.F11)
         else:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_experimental_option(
