@@ -76,6 +76,7 @@ def run(params):
                 service = driver = Service(GeckoDriverManager().install())
 
             driver = webdriver.Firefox(service=service)
+            driver.maximize_window()
             driver.fullscreen_window()
         else:
             chrome_options = webdriver.ChromeOptions()
