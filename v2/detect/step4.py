@@ -97,7 +97,7 @@ def run(params):
                 search_box.send_keys(id)
                 search_box.send_keys(Keys.ENTER)
 
-        cv2.imshow("Face", image)
+        cv2.imshow("Face", grayImage)
 
         if debug == 'False' and navigator is False:
             cv2.waitKey(5000)
