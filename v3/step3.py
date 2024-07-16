@@ -163,7 +163,6 @@ def run(params):
                 # Escreve no navegador
                 search_box.send_keys(name)
                 search_box.send_keys(Keys.ENTER)
-            else:
 
                 # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
