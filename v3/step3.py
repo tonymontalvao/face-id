@@ -131,15 +131,9 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-                title = get_active_window_title()
-                print(title)
-                if 'Presença' in title:
-                    pyautogui.write(name, interval=0.25)
-                    pyautogui.press('enter')
-            elif name != 'None':
-                if 'Presença' in get_active_window_title():
-                    pyautogui.write(name, interval=0.25)
-                    pyautogui.press('enter')
+            if name != 'None' and 'Presença' in get_active_window_title():
+                pyautogui.write(name, interval=0.25)
+                pyautogui.press('enter')
 
         # Display the resulting image
         if debug == 'True' or debug == 'False':
