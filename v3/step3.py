@@ -164,7 +164,7 @@ def run(params):
                 search_box.send_keys(name)
                 search_box.send_keys(Keys.ENTER)
 
-                # Hit 'q' on the keyboard to quit!
+        # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
             break
 
