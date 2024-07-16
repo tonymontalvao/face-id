@@ -5,10 +5,8 @@ import io
 import os
 import shutil
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # files
@@ -22,7 +20,15 @@ def run(params):
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
+    browser = params['navigator']
     navigator = False
+
+    if browser == 'mozilla':
+        from selenium.webdriver.firefox.service import Service
+        from webdriver_manager.firefox import GeckoDriverManager
+    else:
+        from selenium.webdriver.chrome.service import Service
+        from webdriver_manager.chrome import ChromeDriverManager
 
     # Get a reference to webcam #0 (the default one)
     fps = 10
@@ -63,17 +69,27 @@ def run(params):
     process_this_frame = True
 
     if debug == 'False':
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("useAutomationExtension", False)
-        chrome_options.add_experimental_option(
-            "excludeSwitches", ["enable-automation"])
+        if browser == 'mozilla':
+            if os.path.isfile('/usr/local/bin/geckodriver'):
+                service = Service('/usr/local/bin/geckodriver')
+            else:
+                service = driver = Service(GeckoDriverManager().install())
 
-        if os.path.isfile('/usr/bin/chromedriver'):
-            service = Service('/usr/bin/chromedriver')
+            driver = webdriver.Firefox(service=service)
         else:
-            service = Service(ChromeDriverManager().install())
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_experimental_option(
+                "useAutomationExtension", False)
+            chrome_options.add_experimental_option(
+                "excludeSwitches", ["enable-automation"])
 
-        driver = webdriver.Chrome(options=chrome_options, service=service)
+            if os.path.isfile('/usr/bin/chromedriver'):
+                service = Service('/usr/bin/chromedriver')
+            else:
+                service = Service(ChromeDriverManager().install())
+
+            driver = webdriver.Chrome(options=chrome_options, service=service)
+
         driver.get(site)
         search_box = driver.find_element(by=By.ID, value=field)
 
