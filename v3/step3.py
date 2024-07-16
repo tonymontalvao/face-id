@@ -131,11 +131,11 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-                if 'Chromium' in get_active_window_title():
+                if 'Presença' in get_active_window_title():
                     pyautogui.write(name, interval=0.25)
                     pyautogui.press('enter')
             elif name != 'None':
-                if 'Chromium' in get_active_window_title():
+                if 'Presença' in get_active_window_title():
                     pyautogui.write(name, interval=0.25)
                     pyautogui.press('enter')
 
