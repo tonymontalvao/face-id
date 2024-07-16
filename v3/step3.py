@@ -130,7 +130,7 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-            if name != 'None' and 'Presença' in get_active_window_title():
+            if name != 'None':
                 pyautogui.write(name, interval=0.25)
                 pyautogui.press('enter')
 
