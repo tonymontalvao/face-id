@@ -29,8 +29,8 @@ def run(params):
 
     try:
         fps = 30
-        frame_width = 320
-        frame_height = 240
+        frame_width = 640
+        frame_height = 480
 
         recognizer.read("classifier.yml")
         width, height = 220, 220
