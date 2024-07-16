@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 import io
 import os
-import shutil
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -25,6 +24,7 @@ def run(params):
     if browser == 'mozilla':
         from selenium.webdriver.firefox.service import Service
         from webdriver_manager.firefox import GeckoDriverManager
+        import pyautogui
     else:
         from selenium.webdriver.chrome.service import Service
         from webdriver_manager.chrome import ChromeDriverManager
@@ -75,7 +75,7 @@ def run(params):
                 service = driver = Service(GeckoDriverManager().install())
 
             driver = webdriver.Firefox(service=service)
-            driver.find_element(by=By.ID, value=Keys.F11)
+            pyautogui.press('F11')
         else:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_experimental_option(
