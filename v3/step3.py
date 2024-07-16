@@ -75,8 +75,7 @@ def run(params):
                 service = driver = Service(GeckoDriverManager().install())
 
             driver = webdriver.Firefox(service=service)
-            driver.find_element(
-                by=By.XPATH, value='/html/body').send_keys(Keys.F11)
+            driver.find_element(by=By.ID, value=Keys.F11)
         else:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_experimental_option(
