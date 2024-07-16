@@ -4,7 +4,7 @@ import numpy as np
 import io
 import webbrowser
 import pyautogui
-import pygetwindow as gw
+from AppKit import NSWorkspace
 
 
 # files
@@ -120,8 +120,8 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-                active_window = gw.getActiveWindow()
-                print(f"Active window title: {active_window.title()}")
+                active_app = NSWorkspace.sharedWorkspace().frontmostApplication()
+                print(f"Active app: {active_app.localizedName()}")
                 # pyautogui.write(name, interval=0.25)
                 # pyautogui.press('enter')
             elif name != 'None':
