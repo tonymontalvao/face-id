@@ -17,4 +17,5 @@ git clone https://github.com/tonymontalvao/face-id.git
 cd face-id && cd v2
 sudo apt install python3-opencv
 sudo apt-get install chromium-chrome-driver
+sudo apt-get install libopenblas-dev
 sudo pip install -r requirements.txt

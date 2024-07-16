@@ -80,7 +80,7 @@ def run(params):
                             font, 0.5, (0, 0, 255), 2, cv2.LINE_AA, False)
 
                 # Escreve no navegador
-                if debug == 'False' and navigator is True and id != id:
+                if debug == 'False' and navigator is True and id != -1:
                     search_box.send_keys(id)
                     search_box.send_keys(Keys.ENTER)
 

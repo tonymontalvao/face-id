@@ -398,9 +398,11 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 *_parameters.txt
+*.yml
 *.db
 *.DS_Store
 .DS_Store
 capture/fotos/
 v2/apis/imagens/
 v3/imagens/
+v2/detect/imagens/
