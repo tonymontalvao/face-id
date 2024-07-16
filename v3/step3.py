@@ -1,43 +1,47 @@
 import face_recognition
 import cv2
 import numpy as np
+import io
 import os
+import shutil
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 # files
-from main import printProgressBar
+from core.database import session_maker
+from models.fotos_model import FotosModel
 
 
 def run(params):
-    path = params['images_path']
     debug = params['debug']
     site = params['site_url']
     field = params['site_field_focus']
+    tolerance = float(params['tolerance'])
     navigator = False
 
     # Get a reference to webcam #0 (the default one)
     video_capture = cv2.VideoCapture(0)
 
-    known_face_encodings, known_face_names, files = [], [], []
+    known_face_encodings, known_face_names = [], []
 
-    files = [os.path.join(path, f)
-             for f in os.listdir(path) if not f.startswith('.')]
-    files.sort()
+    # Recupera a sessão
+    db = session_maker()
+    registers = db.query(FotosModel).all()
+    if not registers:
+        print('Nenhum registro encontrado!')
+        return
 
-    for i, file in enumerate(files, 1):
-        try:
-            printProgressBar(i, len(files), prefix='Progress:',
-                             suffix='Complete', autosize=True)
-            image = face_recognition.load_image_file(file)
-            encoding = face_recognition.face_encodings(image)[0]
-            known_face_encodings.append(encoding)
-            known_face_names.append(os.path.split(file)[1].split('.')[1])
-        except:
-            print(f"Não foi possível carregar imagem {file}")
+    for r in registers:
+        out = io.BytesIO(r.hash_imagem)
+        out.seek(0)
+        known_face_encodings.append(np.load(out))
+        known_face_names.append(str(r.id_pessoa))
+
+    db.close()
 
     # Initialize some variables
     face_locations = []
@@ -60,7 +64,7 @@ def run(params):
         driver.get(site)
         search_box = driver.find_element(by=By.ID, value=field)
 
-    while video_capture.isOpened():
+    while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
         if not ret:
@@ -86,7 +90,8 @@ def run(params):
             for face_encoding in face_encodings:
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(
-                    known_face_encodings, face_encoding)
+                    known_face_encodings, face_encoding, tolerance=tolerance)
+
                 name = "None"
 
                 # Or instead, use the known face with the smallest distance to the new face
@@ -109,15 +114,17 @@ def run(params):
             left *= 4
 
             # Draw a box around the face
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+            if debug == 'True':
+                cv2.rectangle(frame, (left, top),
+                              (right, bottom), (0, 0, 255), 2)
 
-            # Draw a label with a name below the face
-            cv2.rectangle(frame, (left, bottom - 35),
-                          (right, bottom), (0, 0, 255), cv2.FILLED)
+                # Draw a label with a name below the face
+                cv2.rectangle(frame, (left, bottom - 35),
+                              (right, bottom), (0, 0, 255), cv2.FILLED)
 
-            font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(frame, name, (left + 6, bottom - 6),
-                        font, 0.8, (255, 255, 255), 1)
+                font = cv2.FONT_HERSHEY_DUPLEX
+                cv2.putText(frame, name, (left + 6, bottom - 6),
+                            font, 0.8, (255, 255, 255), 1)
 
             # Escreve no navegador
             if debug == 'False' and navigator is True and name != 'None':

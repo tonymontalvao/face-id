@@ -10,6 +10,7 @@ parameters = {
     'site_url': '',
     'site_field_focus': '',
     'debug': True,
+    'tolerance': 0.6
 }
 
 

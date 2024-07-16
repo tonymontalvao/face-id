@@ -3,6 +3,7 @@ import shutil
 import time
 
 # files
+from create_database import create_tables
 import step1
 import step2
 import step3
@@ -36,16 +37,16 @@ def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=
 
 
 if __name__ == '__main__':
+    # Cria banco e tabelas
+    create_tables()
+
     # Declara variáveis
     params, images = None, None
 
     # Faz leitura do arquivo parametros
     params = step1.read()
     if params:
-        if params['images_folder'] == 'False':
-            images = step2.get_images(params)
-        else:
-            images = True
+        images = step2.get_images(params)
 
     # Abre programa
     if images:
