@@ -142,7 +142,7 @@ def run(params):
             left *= 4
 
             # Draw a box around the face
-            if debug == 'True':
+            if debug == 'True' or debug == 'False':
                 cv2.rectangle(frame, (left, top),
                               (right, bottom), (0, 0, 255), 2)
 
@@ -160,9 +160,9 @@ def run(params):
                 search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
-        # if debug == 'True':
-        cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
-        cv2.imshow('Video', frame)
+        if debug == 'True' or debug == 'False':
+            cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
+            cv2.imshow('Video', frame)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
