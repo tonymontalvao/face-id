@@ -31,13 +31,13 @@ def run(params):
     font = cv2.FONT_HERSHEY_DUPLEX
 
     if usb == 'True':
-        camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+        video_capture = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
     else:
-        camera = cv2.VideoCapture(0)
+        video_capture = cv2.VideoCapture(0)
 
-    camera.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
-    camera.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
-    camera.set(cv2.CAP_PROP_FPS, fps)
+    video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
+    video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
+    video_capture.set(cv2.CAP_PROP_FPS, fps)
 
     known_face_encodings, known_face_names = [], []
 

@@ -37,7 +37,9 @@ def run(params):
         font = cv2.FONT_HERSHEY_DUPLEX
 
         if usb == 'True':
-            camera = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
+            pipeline = "libcamerasrc ! video/x-raw, width=640, height=480, framerate=15/1 ! videoconvert ! videoscale ! video/x-raw, width=640, height=480 ! appsink"
+            camera = cv2.VideoCapture(
+                pipeline, apiPreference=cv2.CAP_GSTREAMER)
         else:
             camera = cv2.VideoCapture(0)
 
@@ -97,7 +99,7 @@ def run(params):
                 search_box.send_keys(id)
                 search_box.send_keys(Keys.ENTER)
 
-        cv2.imshow("Face", grayImage)
+        cv2.imshow("Face", image)
 
         if debug == 'False' and navigator is False:
             cv2.waitKey(5000)
