@@ -4,23 +4,10 @@ import numpy as np
 import io
 import webbrowser
 import pyautogui
-import subprocess
 
 # files
 from core.database import session_maker
 from models.fotos_model import FotosModel
-
-
-def get_active_window_title():
-    try:
-        # Run the xdotool command to get the active window's name
-        result = subprocess.run(
-            ['xdotool', 'getactivewindow', 'getwindowname'], stdout=subprocess.PIPE)
-        # Decode the output from bytes to a string and strip any extra whitespace
-        active_window_title = result.stdout.decode('utf-8').strip()
-        return active_window_title
-    except Exception as e:
-        return f"An error occurred: {e}"
 
 
 def run(params):
@@ -67,7 +54,7 @@ def run(params):
     face_names = []
     process_this_frame = True
 
-    if debug == 'False' or debug == 'True':
+    if debug == 'False':
         webbrowser.open(site, new=2)
         pyautogui.press('F11')
 
@@ -118,7 +105,7 @@ def run(params):
             left *= 4
 
             # Draw a box around the face
-            if debug == 'True' or debug == 'False':
+            if debug == 'True':
                 cv2.rectangle(frame, (left, top),
                               (right, bottom), (0, 0, 255), 2)
 
@@ -130,15 +117,12 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-            if name != 'None':
-                title = get_active_window_title()
-                print(title)
-
-                pyautogui.write(name + '\n', interval=0.0)
-                # pyautogui.press('enter')
+            elif name != 'None':
+                pyautogui.write(name, interval=0.10)
+                pyautogui.press('enter')
 
         # Display the resulting image
-        if debug == 'True' or debug == 'False':
+        if debug == 'True':
             cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
             cv2.imshow('Video', frame)
 
