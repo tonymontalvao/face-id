@@ -2,9 +2,8 @@ import face_recognition
 import cv2
 import numpy as np
 import io
+import os
 import webbrowser
-import pyautogui
-import pygetwindow as gw
 
 
 # files
@@ -18,6 +17,15 @@ def run(params):
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
+    browser = params['browser']
+
+    if browser == 'mozilla':
+        from selenium.webdriver.firefox.service import Service
+        from webdriver_manager.firefox import GeckoDriverManager
+        import pyautogui
+    else:
+        from selenium.webdriver.chrome.service import Service
+        from webdriver_manager.chrome import ChromeDriverManager
 
     # Get a reference to webcam #0 (the default one)
     fps = 30
@@ -57,9 +65,33 @@ def run(params):
     face_names = []
     process_this_frame = True
 
-    if debug == 'False' or debug == 'True':
-        webbrowser.open(site, new=2)
-        pyautogui.press('F11')
+    if debug == 'False':
+        if browser == 'mozilla':
+            if os.path.isfile('/usr/local/bin/geckodriver'):
+                service = Service('/usr/local/bin/geckodriver')
+            else:
+                service = driver = Service(GeckoDriverManager().install())
+
+            driver = webdriver.Firefox(service=service)
+            pyautogui.press('F11')
+        else:
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_experimental_option(
+                "useAutomationExtension", False)
+            chrome_options.add_experimental_option(
+                "excludeSwitches", ["enable-automation"])
+
+            if os.path.isfile('/usr/bin/chromedriver'):
+                service = Service('/usr/bin/chromedriver')
+            else:
+                service = Service(ChromeDriverManager().install())
+
+            driver = webdriver.Chrome(options=chrome_options, service=service)
+            driver.fullscreen_window()
+
+        driver.get(site)
+        cv2.waitKey(5000)
+        search_box = driver.find_element(by=By.ID, value=field)
 
     while True:
         # Grab a single frame of video
@@ -120,14 +152,10 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-                active_window = gw.getActiveWindow()
-                print(f"Active window title: {active_window.title()}")
-                # pyautogui.write(name, interval=0.25)
-                # pyautogui.press('enter')
             elif name != 'None':
-                pass
-                # pyautogui.write(name, interval=0.25)
-                # pyautogui.press('enter')
+                # Escreve no navegador
+                search_box.send_keys(name)
+                search_box.send_keys(Keys.ENTER)
 
         # Display the resulting image
         if debug == 'True' or debug == 'False':
