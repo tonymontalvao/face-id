@@ -139,19 +139,18 @@ def run(params):
                 cv2.putText(frame, name, (left + 6, bottom - 6),
                             font, 0.8, (255, 255, 255), 1)
 
-            # Escreve no navegador
-            if debug == 'False' and navigator is True and name != 'None':
-                search_box.send_keys(name)
-                search_box.send_keys(Keys.ENTER)
-
-        # Display the resulting image
-        cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
-        cv2.imshow('Video', frame)
-
-        if debug == 'False' and navigator is False:
-            cv2.waitKey(5000)
-            navigator = True
-            driver.fullscreen_window()
+                # Display the resulting image
+                cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+                cv2.imshow('Video', frame)
+            elif navigator is True:
+                if name != 'None':
+                    # Escreve no navegador
+                    search_box.send_keys(name)
+                    search_box.send_keys(Keys.ENTER)
+            else:
+                cv2.waitKey(5000)
+                navigator = True
+                driver.fullscreen_window()
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
