@@ -8,7 +8,6 @@ parameters = {
     'images_path': 'imagens',
     'images_folder': 'False',
     'site_url': '',
-    'site_field_focus': '',
     'debug': True,
     'tolerance': 0.6,
     'webcam_usb': True
