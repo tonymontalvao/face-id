@@ -5,8 +5,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def run(params):
@@ -66,10 +64,6 @@ def run(params):
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
         search_box = driver.find_element(by=By.ID, value=field)
-
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, field))
-        )
 
     while True:
         connect, image = camera.read()
