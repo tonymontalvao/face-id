@@ -2,6 +2,7 @@ import face_recognition
 import cv2
 import numpy as np
 import io
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -57,7 +58,12 @@ def run(params):
         chrome_options.add_experimental_option("useAutomationExtension", False)
         chrome_options.add_experimental_option(
             "excludeSwitches", ["enable-automation"])
-        service = Service(ChromeDriverManager().install())
+
+        if os.path.isfile('/usr/bin/chromedriver'):
+            service = Service('/usr/bin/chromedriver')
+        else:
+            service = Service(ChromeDriverManager().install())
+
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
 
