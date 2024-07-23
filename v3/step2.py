@@ -125,7 +125,7 @@ def get_images(params) -> dict:
     db.commit()
     db.close()
 
-    # if debug == 'False':
-    #     shutil.rmtree(path, ignore_errors=True)
+    if debug == 'False':
+        shutil.rmtree(path, ignore_errors=True)
 
     return True
