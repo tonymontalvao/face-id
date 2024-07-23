@@ -49,7 +49,7 @@ def get_images(params) -> dict:
             person_id = r['matricula_id']
             image_id = r['indice']
             photo = r['foto']
-            changed = False
+            changed = True
             image_name = f"p.{person_id}.{image_id}.jpg"
 
             register = db.query(FotosModel).filter(
