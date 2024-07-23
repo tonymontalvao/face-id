@@ -52,8 +52,15 @@ def get_images(params) -> dict:
             changed = True
             image_name = f"p.{person_id}.{image_id}.jpg"
 
-            register = db.query(FotosModel).filter(
-                FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
+            if changed == True:
+                registers = db.query(FotosModel).filter(
+                    FotosModel.id_pessoa).all()
+                for register in registers:
+                    db.delete(register)
+                db.commit()
+            else:
+                register = db.query(FotosModel).filter(
+                    FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
 
             if changed == True or not register:
                 try:
