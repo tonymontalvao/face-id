@@ -53,10 +53,10 @@ def get_images(params) -> dict:
             image_name = f"p.{person_id}.{image_id}.jpg"
 
             if changed == True:
-                registers = db.query(FotosModel).filter(
+                arquives = db.query(FotosModel).filter(
                     FotosModel.id_pessoa).all()
-                for register in registers:
-                    db.delete(register)
+                for arquive in arquives:
+                    db.delete(arquive)
                 db.commit()
             else:
                 register = db.query(FotosModel).filter(
