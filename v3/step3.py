@@ -62,7 +62,11 @@ def run(params):
         if os.path.isfile('/usr/bin/chromedriver'):
             service = Service('/usr/bin/chromedriver')
         else:
-            service = Service(ChromeDriverManager().install())
+            try:
+                service = Service(ChromeDriverManager().install())
+            except:
+                print('Não foi possível carregar o driver')
+                return
 
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
