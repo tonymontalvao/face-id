@@ -56,7 +56,12 @@ def get_images(params) -> dict:
                 FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
 
             if changed == True or not register:
-                response_image = requests.get(photo)
+                try:
+                    response_image = requests.get(photo)
+                except:
+                    print(f"Url inválida para pessoa {
+                          person_id}, indice {image_id}")
+
                 if response_image.ok:
                     with open(f"{path}/{image_name}", "wb") as image:
                         image.write(response_image.content)
