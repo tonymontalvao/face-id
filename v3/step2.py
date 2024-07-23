@@ -54,7 +54,6 @@ def get_images(params) -> dict:
 
             if changed == True:
                 db.query(FotosModel).filter(FotosModel.id_pessoa).delete()
-
                 register = None
             else:
                 register = db.query(FotosModel).filter(
