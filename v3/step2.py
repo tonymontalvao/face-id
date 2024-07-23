@@ -59,8 +59,7 @@ def get_images(params) -> dict:
                 try:
                     response_image = requests.get(photo)
                 except:
-                    print(f"Url inválida para pessoa {
-                          person_id}, indice {image_id}")
+                    print(f"Url inválida {person_id}, indice {image_id}")
 
                 if response_image.ok:
                     with open(f"{path}/{image_name}", "wb") as image:
