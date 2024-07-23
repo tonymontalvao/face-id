@@ -60,17 +60,16 @@ def run(params):
         chrome_options.add_experimental_option(
             "excludeSwitches", ["enable-automation"])
 
-        try:
-            if os.path.isfile('/usr/bin/chromedriver'):
-                service = Service('/usr/bin/chromedriver')
-            else:
+        if os.path.isfile('/usr/bin/chromedriver'):
+            service = Service('/usr/bin/chromedriver')
+        else:
+            try:
                 service = Service(ChromeDriverManager().install())
+            except:
+                service = Service(ChromeDriverManager(
+                    chrome_type=ChromeType.CHROMIUM).install())
 
-            driver = webdriver.Chrome(options=chrome_options, service=service)
-        except:
-            driver = webdriver.Chrome(service=Service(
-                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
-
+        driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
 
         try:
