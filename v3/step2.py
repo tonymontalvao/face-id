@@ -54,10 +54,11 @@ def get_images(params) -> dict:
 
             if changed == True:
                 arquives = db.query(FotosModel).filter(
-                    FotosModel.id_pessoa).all()
+                    FotosModel.id_pessoa).delete()
                 for arquive in arquives:
                     db.delete(arquive)
-                db.commit()
+
+                register = None
             else:
                 register = db.query(FotosModel).filter(
                     FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
