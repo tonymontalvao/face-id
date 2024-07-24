@@ -58,6 +58,7 @@ def run(params):
     if debug == 'False':
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--kiosk")
+        chrome_options.add_argument("--start-fullscreen")
         chrome_options.add_experimental_option("useAutomationExtension", False)
         chrome_options.add_experimental_option(
             "excludeSwitches", ["enable-automation"])
@@ -73,7 +74,7 @@ def run(params):
 
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
-        # driver.fullscreen_window()
+        driver.fullscreen_window()
 
         try:
             element = WebDriverWait(driver, 10).until(
