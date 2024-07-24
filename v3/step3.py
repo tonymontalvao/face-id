@@ -2,6 +2,7 @@ import face_recognition
 import cv2
 import numpy as np
 import io
+import pyautogui
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -56,6 +57,7 @@ def run(params):
 
     if debug == 'False':
         chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--kiosk")
         chrome_options.add_experimental_option("useAutomationExtension", False)
         chrome_options.add_experimental_option(
             "excludeSwitches", ["enable-automation"])
@@ -71,6 +73,7 @@ def run(params):
 
         driver = webdriver.Chrome(options=chrome_options, service=service)
         driver.get(site)
+        # driver.fullscreen_window()
 
         try:
             element = WebDriverWait(driver, 10).until(
@@ -79,7 +82,6 @@ def run(params):
             driver.quit()
         finally:
             driver.implicitly_wait(100)
-            driver.fullscreen_window()
             search_box = driver.find_element(by=By.ID, value=field)
 
     if usb == 'True':
