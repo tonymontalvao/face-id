@@ -2,7 +2,6 @@ import face_recognition
 import cv2
 import numpy as np
 import io
-import pyautogui
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
