@@ -24,7 +24,6 @@ def run(params):
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
-    two_cams = params['two_cams']
 
     # Get a reference to webcam #0 (the default one)
     fps = 30

@@ -1,13 +1,13 @@
 # virtualenv: face-id
 import shutil
-import time
 
 
 # files
 from create_database import create_tables
 import step1
 import step2
-import step3
+import step3_one_cam
+import step3_two_cam
 
 
 def printProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=100, fill='█', autosize=False):
@@ -51,4 +51,7 @@ if __name__ == '__main__':
 
     # Abre programa
     if images:
-        step3.run(params)
+        if params['two_cams'] == 'True':
+            step3_two_cam.run(params)
+        else:
+            step3_one_cam.rum(params)
