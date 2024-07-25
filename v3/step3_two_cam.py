@@ -167,14 +167,12 @@ def run(params):
             cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
             cv2.imshow('Video', frame)
 
-            cv2.namedWindow('Video2', cv2.WINDOW_FULLSCREEN)
-            cv2.imshow('Video2', frame2)
-
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
             break
 
     # Release handle to the webcam
-    video_capture.release()
+    video_capture0.release()
+    video_capture1.release()
     cv2.destroyAllWindows()
     # driver.quit()
