@@ -87,11 +87,10 @@ def run(params):
 
     if usb == 'True':
         video_capture = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
-        video_capture2 = cv2.VideoCapture(
-            2, apiPreference=cv2.CAP_V4L2) if two_cams == 'True' else None
+        video_capture2 = cv2.VideoCapture(2, apiPreference=cv2.CAP_V4L2)
     else:
         video_capture = cv2.VideoCapture(0)
-        video_capture2 = cv2.VideoCapture(2) if two_cams == 'True' else None
+        video_capture2 = cv2.VideoCapture(2)
 
     # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
