@@ -54,4 +54,4 @@ if __name__ == '__main__':
         if params['two_cams'] == 'True':
             step3_two_cam.run(params)
         else:
-            step3_one_cam.rum(params)
+            step3_one_cam.run(params)
