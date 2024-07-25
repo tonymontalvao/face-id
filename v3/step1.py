@@ -11,7 +11,8 @@ parameters = {
     'site_field_focus': '',
     'debug': True,
     'tolerance': 0.6,
-    'webcam_usb': True
+    'webcam_usb': True,
+    'two_cams': True
 }
 
 

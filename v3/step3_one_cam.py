@@ -24,7 +24,6 @@ def run(params):
     field = params['site_field_focus']
     tolerance = float(params['tolerance'])
     usb = params['webcam_usb']
-    two_cams = params['two_cams']
 
     # Get a reference to webcam #0 (the default one)
     fps = 30
@@ -87,11 +86,14 @@ def run(params):
 
     if usb == 'True':
         video_capture = cv2.VideoCapture(0, apiPreference=cv2.CAP_V4L2)
-        video_capture2 = cv2.VideoCapture(
-            1, apiPreference=cv2.CAP_V4L2) if two_cams == 'True' else None
     else:
         video_capture = cv2.VideoCapture(0)
-        video_capture2 = cv2.VideoCapture(1) if two_cams == 'True' else None
+
+    # codec = 0x47504A4D  # MJPG
+    # video_capture.set(cv2.CAP_PROP_FPS, 30.0)
+    # video_capture.set(cv2.CAP_PROP_FOURCC, codec)
+    # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
     # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
@@ -100,19 +102,16 @@ def run(params):
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
-        ret2, frame2 = video_capture2.read()
-        if not ret or not ret2:
+        if not ret:
             break
 
         # Only process every other frame of video to save time
         if process_this_frame:
             # Resize frame of video to 1/4 size for faster face recognition processing
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-            small_frame2 = cv2.resize(frame2, (0, 0), fx=0.25, fy=0.25)
 
             # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
             rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
-            rgb_small_frame2 = cv2.cvtColor(small_frame2, cv2.COLOR_BGR2RGB)
 
             # Find all the faces and face encodings in the current frame of video
             face_locations = face_recognition.face_locations(rgb_small_frame)
@@ -168,9 +167,6 @@ def run(params):
         if debug == 'True':
             cv2.namedWindow('Video', cv2.WINDOW_FULLSCREEN)
             cv2.imshow('Video', frame)
-
-            cv2.namedWindow('Video2', cv2.WINDOW_FULLSCREEN)
-            cv2.imshow('Video2', frame2)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) == ord('q'):
