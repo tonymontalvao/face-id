@@ -89,6 +89,12 @@ def run(params):
     else:
         video_capture = cv2.VideoCapture(0)
 
+    codec = 0x47504A4D  # MJPG
+    video_capture.set(cv2.CAP_PROP_FPS, 30.0)
+    video_capture.set(cv2.CAP_PROP_FOURCC, codec)
+    video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+
     # video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, frame_width)
     # video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, frame_height)
     # video_capture.set(cv2.CAP_PROP_FPS, fps)
@@ -169,4 +175,4 @@ def run(params):
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
-    driver.quit()
+    # driver.quit()
