@@ -4,6 +4,7 @@ import shutil
 import face_recognition
 import numpy
 import io
+from datetime import datetime
 
 # files
 from core.database import session_maker
@@ -49,17 +50,27 @@ def get_images(params) -> dict:
             person_id = r['matricula_id']
             image_id = r['indice']
             photo = r['foto']
-            changed = True
+            data_mais_recente = r['data_mais_recente']
+
+            if data_mais_recente is None:
+                data_mais_recente = datetime.now()
+            else:
+                data_mais_recente = datetime.strptime(
+                    data_mais_recente, '%Y-%m-%d %H:%M:%S')
+
             image_name = f"p.{person_id}.{image_id}.jpg"
 
-            if changed == True:
-                db.query(FotosModel).filter(FotosModel.id_pessoa).delete()
-                register = None
-            else:
-                register = db.query(FotosModel).filter(
-                    FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
+            # if changed == True:
+            #     db.query(FotosModel).filter(FotosModel.id_pessoa).delete()
+            #     register = None
+            # else:
+            #     register = db.query(FotosModel).filter(
+            #         FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
 
-            if changed == True or not register:
+            register = db.query(FotosModel).filter(
+                FotosModel.id_pessoa == person_id and FotosModel.idx_imagem == image_id).one_or_none()
+
+            if not register or data_mais_recente > register.dt_imagem:
                 try:
                     response_image = requests.get(photo)
                 except:
@@ -80,12 +91,14 @@ def get_images(params) -> dict:
                         if register:
                             register.hash_imagem = out.read()
                             register.link_imagem = photo
+                            register.dt_imagem = data_mais_recente
                         else:
                             register = FotosModel(
                                 id_pessoa=person_id,
                                 idx_imagem=image_id,
                                 hash_imagem=out.read(),
                                 link_imagem=photo,
+                                dt_imagem=data_mais_recente
                             )
                             db.add(register)
                     except:
@@ -118,11 +131,13 @@ def get_images(params) -> dict:
 
                 if register:
                     register.hash_imagem = out.read()
+                    register.dt_imagem = data_mais_recente
                 else:
                     register = FotosModel(
                         id_pessoa=person_id,
                         idx_imagem=image_id,
-                        hash_imagem=out.read()
+                        hash_imagem=out.read(),
+                        dt_imagem=data_mais_recente
                     )
                     db.add(register)
 
